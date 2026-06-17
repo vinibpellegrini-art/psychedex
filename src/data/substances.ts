@@ -1,3 +1,5 @@
+// Array of substance data including legal, prescription, research, and illegal substances
+// Each substance has an id, name, category, duration, and description
 export const substances = [
   // LEGAL EVERYDAY
 
