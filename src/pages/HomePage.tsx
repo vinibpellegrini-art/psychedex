@@ -14,21 +14,28 @@ function HomePage() {
 
   return (
     <div style={{ padding: "20px" }}>
-      {/* Page title */}
-      <h1>Psychedex</h1>
+      {/* Centered header section with logo and search */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "40px" }}>
+        {/* Logo image */}
+        <img
+          src={new URL("../assets/logofinal.png", import.meta.url).href}
+          alt="Psychedex"
+          style={{ maxWidth: "300px", marginBottom: "20px" }}
+        />
 
-      {/* Search input field */}
-      <input
-        type="text"
-        placeholder="Search substances..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          padding: "10px",
-          width: "300px",
-          marginBottom: "20px",
-        }}
-      />
+        {/* Search input field */}
+        <input
+          type="text"
+          placeholder="Search substances..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "10px",
+            width: "300px",
+            marginBottom: "20px",
+          }}
+        />
+      </div>
 
       {/* Grid container displaying substance cards */}
       <div
