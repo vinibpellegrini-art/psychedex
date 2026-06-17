@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import { substances } from "../data/substances";
+import { substances, substanceCIDMap } from "../data/substances";
 
-// SubstancePage component - displays detailed information about a specific substance
+// SubstancePage component - displays detailed information for one substance.
 function SubstancePage() {
-  // Get the substance ID from the URL parameters
+  // Get the substance ID from the route parameters.
   const { id } = useParams();
 
-  // Find the substance object matching the ID from the URL
+  // Find the substance object in the data list by ID.
   const substance = substances.find(
     (s) => s.id === Number(id)
   );
@@ -16,9 +16,27 @@ function SubstancePage() {
     return <h1>Substance not found</h1>;
   }
 
-  // Render detailed substance information
+  // Look up the PubChem CID for the selected substance.
+  const cid = substanceCIDMap[substance.id];
+  const imageUrl = cid
+    ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/PNG?image_size=350x350`
+    : null;
+
+  // Render detailed substance information with the molecular image above the name.
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={`${substance.name} structure`}
+          style={{
+            width: "100%",
+            maxWidth: "360px",
+            objectFit: "contain",
+            marginBottom: "20px",
+          }}
+        />
+      )}
       {/* Substance name */}
       <h1>{substance.name}</h1>
 

@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-// Props interface for SubstanceCard component
+// Props interface for the SubstanceCard component.
+// Accepts a PubChem CID so the component can render a molecular structure image.
 type Props = {
   id: number;
   name: string;
   category: string;
   duration: string;
   description: string;
+  cid?: number;
 };
 
 // SubstanceCard component - displays a clickable card for a single substance
@@ -17,9 +19,15 @@ function SubstanceCard({
   category,
   duration,
   description,
+  cid,
 }: Props) {
-  // Hook to navigate to different routes
+  // Hook to navigate to the substance detail page on card click.
   const navigate = useNavigate();
+
+  // Build the PubChem image URL from the CID if one is available.
+  const imageUrl = cid
+    ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/PNG?image_size=250x250`
+    : null;
 
   return (
     // Card container with click handler to navigate to substance details
@@ -33,6 +41,36 @@ function SubstanceCard({
         backgroundColor: "#fff",
       }}
     >
+      {/* Render the PubChem structure image when a CID is available. */}
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={`${name} structure`}
+          style={{
+            width: "100%",
+            maxHeight: "180px",
+            objectFit: "contain",
+            marginBottom: "15px",
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            minHeight: "140px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#f7f7f7",
+            color: "#777",
+            marginBottom: "15px",
+            borderRadius: "8px",
+          }}
+        >
+          No structure image
+        </div>
+      )}
+
       {/* Substance name */}
       <h2>{name}</h2>
 

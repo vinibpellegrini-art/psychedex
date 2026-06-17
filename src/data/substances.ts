@@ -1,5 +1,6 @@
-// Array of substance data including legal, prescription, research, and illegal substances
-// Each substance has an id, name, category, duration, and description
+// Array of substance data including legal, prescription, research, and illegal substances.
+// Each substance object contains an id, name, category, duration, and description.
+// The PubChem CID lookup is stored separately in substanceCIDMap.
 export const substances = [
   // LEGAL EVERYDAY
 
@@ -363,3 +364,57 @@ export const substances = [
     description: "A powerful short-acting hallucinogenic plant."
   }
 ];
+
+// Map of substance IDs to PubChem CIDs. These CIDs are used to fetch molecular structure images.
+export const substanceCIDMap: Record<number, number> = {
+  1: 2519,
+  2: 89594,
+  3: 702,
+  4: 644019,
+  5: 896,
+  6: 3386,
+  7: 68617,
+  8: 6918132,
+  9: 2499,
+  10: 992,
+  11: 60835,
+  12: 3696,
+  13: 4034,
+  14: 3007,
+  15: 5826,
+  16: 8582,
+  17: 4505,
+  18: 3018,
+  19: 2118,
+  20: 2800,
+  21: 3958,
+  22: 5393,
+  23: 5731,
+  24: 5489,
+  25: 3446,
+  26: 5284371,
+  27: 5288826,
+  28: 3127,
+  29: 5284603,
+  30: 5284596,
+  31: 131003,
+  32: 29102,
+  33: 5337786,
+  34: 10091558,
+  35: 2786977,
+  36: 6332976,
+  37: 5359398,
+  38: 16078,
+  39: 10624,
+  40: 5761,
+  41: 6089,
+  42: 4066,
+  43: 43815,
+  44: 446220,
+  45: 446220,
+  46: 10752,
+  47: 5462328,
+  48: 5284616,
+  49: 5284553,
+  50: 123140,
+};

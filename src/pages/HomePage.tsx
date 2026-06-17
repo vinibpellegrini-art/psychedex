@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { substances } from "../data/substances";
+import { substances, substanceCIDMap } from "../data/substances";
 import SubstanceCard from "../components/SubstanceCard";
 
-// HomePage component - main page displaying all substances with search functionality
+// HomePage component - main page displaying all substances with search functionality.
 function HomePage() {
-  // State for search input
+  // State for the search input value entered by the user.
   const [search, setSearch] = useState("");
 
-  // Filter substances based on search input (case-insensitive)
+  // Filter substances based on search input (case-insensitive).
   const filteredSubstances = substances.filter((substance) =>
     substance.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -38,7 +38,8 @@ function HomePage() {
           gap: "20px",
         }}
       >
-        {/* Map through filtered substances and render a card for each */}
+        {/* Map through filtered substances and render a card for each.
+            Pass the PubChem CID so the child card can load the structure image. */}
         {filteredSubstances.map((substance) => (
           <SubstanceCard
             key={substance.id}
@@ -47,6 +48,7 @@ function HomePage() {
             category={substance.category}
             duration={substance.duration}
             description={substance.description}
+            cid={substanceCIDMap[substance.id]}
           />
         ))}
       </div>
