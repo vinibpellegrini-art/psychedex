@@ -41,9 +41,14 @@
   .topbar {
     flex-direction: column;
     justify-content: center;
+    padding: 12px 16px;
+    /* Lighter blur is cheaper to repaint while scrolling on phones */
+    -webkit-backdrop-filter: blur(6px) saturate(1.2);
+    backdrop-filter: blur(6px) saturate(1.2);
   }
-  .controls {
-    justify-content: center;
+  .topbar__logo {
+    /* Cap relative to viewport so the logo never overflows narrow screens */
+    max-width: 60vw;
   }
 }
 
@@ -128,8 +133,8 @@
   top: 10px;
   right: 10px;
   z-index: 2;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -290,8 +295,8 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 24px;
-  padding: 8px 14px;
-  font-size: 14px;
+  padding: 10px 16px;
+  font-size: 15px;
   color: var(--text-h);
   background: var(--bg-elev);
   border: 1px solid var(--border);
@@ -598,5 +603,44 @@
   }
   .detail__title {
     font-size: 34px;
+  }
+}
+
+/* Stack the search and category filter full-width on narrow screens.
+   Placed AFTER the base .controls/.search/.select rules so these win
+   (media queries don't add specificity). Resetting flex stops the 360px/
+   280px bases from being applied vertically and stretching the controls. */
+@media (max-width: 640px) {
+  .controls {
+    flex-direction: column;
+    flex: 0 0 auto;
+    width: 100%;
+    gap: 10px;
+  }
+  .search {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .select {
+    width: 100%;
+  }
+}
+
+/* Phone-specific: tighter spacing and larger touch targets */
+@media (max-width: 480px) {
+  .grid {
+    padding: 14px 14px 48px;
+    gap: 14px;
+  }
+  .detail {
+    padding: 18px 16px 48px;
+  }
+  .addbtn {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+  .back {
+    padding: 12px 18px;
   }
 }

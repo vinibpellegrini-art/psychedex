@@ -18,8 +18,13 @@ function Background() {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    // Touch / no-hover devices (phones, tablets): render the field once and
+    // skip the continuous animation loop to save battery, with a sparser grid
+    // for performance. There's no cursor to follow on these devices anyway.
+    const coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const isStatic = reduced || coarse;
 
-    const SPACING = 42; // gap between line centers (px)
+    const SPACING = coarse ? 64 : 42; // gap between line centers (px)
     const HALF = 7; // half-length of each line (px)
     const GLOW_RADIUS = 320; // px within which lines brighten toward the cursor
 
@@ -105,12 +110,12 @@ function Background() {
     function onResize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       build();
-      if (reduced) drawStatic();
+      if (isStatic) drawStatic();
     }
 
     build();
     window.addEventListener("resize", onResize);
-    if (reduced) {
+    if (isStatic) {
       drawStatic();
     } else {
       window.addEventListener("pointermove", onMove);

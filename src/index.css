@@ -51,9 +51,11 @@
 body {
   margin: 0;
   min-height: 100svh;
-  /* Transparent so the z-index:-1 line canvas shows through (the aurora and
-     base color are on the root element above). */
+  /* Transparent so the line canvas shows through (the aurora and base color
+     are on the root element above). */
   background: transparent;
+  /* Safety net against any stray horizontal scrolling on small screens */
+  overflow-x: hidden;
 }
 
 #root {
