@@ -363,6 +363,84 @@
   color: var(--text);
 }
 
+/* ---- Dose spectrum bar ---- */
+.dose {
+  margin-top: 26px;
+  max-width: 460px;
+}
+
+.dose__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.dose__title {
+  font-family: var(--heading);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-h);
+}
+
+.dose__note {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.dose__tiers,
+.dose__values {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.dose__tier {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dose__bar {
+  position: relative;
+  height: 14px;
+  margin: 6px 0;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    #2dd4bf 0%,
+    #34d399 25%,
+    #fbbf24 50%,
+    #fb923c 75%,
+    #f87171 100%
+  );
+  box-shadow: 0 0 18px -2px rgba(248, 113, 113, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Thin separators at each tier boundary (20/40/60/80%) */
+.dose__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(20% - 1px),
+    rgba(12, 12, 17, 0.55) calc(20% - 1px),
+    rgba(12, 12, 17, 0.55) 20%
+  );
+  pointer-events: none;
+}
+
+.dose__value {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text);
+}
+
 /* ---- Animations ---- */
 @keyframes fade-in {
   from {

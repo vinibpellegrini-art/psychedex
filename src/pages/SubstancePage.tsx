@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase, type Substance } from "../lib/supabase";
 import { badgeStyle } from "../lib/categoryColors";
+import DoseBar from "../components/DoseBar";
 
 // SubstancePage component - displays detailed information for one substance,
 // loaded from the Supabase `substances_view` view by id.
@@ -106,6 +107,17 @@ function SubstancePage() {
           </p>
 
           <p className="detail__desc">{substance.description}</p>
+
+          {/* Dose spectrum (renders only when the substance has dose data) */}
+          <DoseBar
+            route={substance.dose_route}
+            unit={substance.dose_unit}
+            threshold={substance.dose_threshold}
+            light={substance.dose_light}
+            common={substance.dose_common}
+            strong={substance.dose_strong}
+            heavy={substance.dose_heavy}
+          />
         </div>
       </div>
     </div>

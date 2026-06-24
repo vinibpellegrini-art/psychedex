@@ -26,4 +26,13 @@ export type Substance = {
   duration: string;
   description: string;
   pubchem_cid: number | null;
+  // Dose tiers (optional — present once db/dose.sql has been run and the
+  // substance has reference doses).
+  dose_route?: string | null;
+  dose_unit?: string | null;
+  dose_threshold?: number | null;
+  dose_light?: number | null;
+  dose_common?: number | null;
+  dose_strong?: number | null;
+  dose_heavy?: number | null;
 };
