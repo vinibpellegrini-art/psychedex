@@ -41,14 +41,15 @@
   .topbar {
     flex-direction: column;
     justify-content: center;
-    padding: 12px 16px;
+    gap: 8px;
+    padding: 8px 14px;
     /* Lighter blur is cheaper to repaint while scrolling on phones */
     -webkit-backdrop-filter: blur(6px) saturate(1.2);
     backdrop-filter: blur(6px) saturate(1.2);
   }
   .topbar__logo {
-    /* Cap relative to viewport so the logo never overflows narrow screens */
-    max-width: 60vw;
+    /* Smaller logo so the header stays short on phones */
+    max-width: 150px;
   }
 }
 
@@ -122,7 +123,8 @@
 /* ---- Grid ---- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* min(240px, 100%) stops the 240px floor from overflowing narrow phones */
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
   gap: 18px;
   padding: 18px 20px 60px;
 }
@@ -175,6 +177,7 @@
   display: flex;
   flex-direction: column;
   text-align: left;
+  min-width: 0;
   padding: 16px;
   background: var(--card);
   border: 1px solid var(--border);
@@ -684,22 +687,27 @@
   }
 }
 
-/* Stack the search and category filter full-width on narrow screens.
-   Placed AFTER the base .controls/.search/.select rules so these win
-   (media queries don't add specificity). Resetting flex stops the 360px/
-   280px bases from being applied vertically and stretching the controls. */
+/* Keep search + category filter on ONE compact row on phones to save header
+   height. Placed AFTER the base rules so these win (media queries don't add
+   specificity). flex: 0 0 auto on .controls stops its 360px basis from being
+   applied vertically; search grows to fill, the select stays its natural width. */
 @media (max-width: 640px) {
+  /* Grid (not flex) so the search column reliably shrinks via minmax(0,1fr)
+     and the pair always fits the viewport — no off-screen clipping.
+     flex: 0 0 auto keeps the controls' own height natural inside the
+     column topbar (stops the 360px basis applying vertically). */
   .controls {
     flex-direction: column;
     flex: 0 0 auto;
     width: 100%;
-    gap: 10px;
+    gap: 8px;
   }
   .search {
     flex: 0 0 auto;
     width: 100%;
   }
   .select {
+    flex: 0 0 auto;
     width: 100%;
   }
 }
