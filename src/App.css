@@ -240,6 +240,19 @@
   filter: none;
 }
 
+/* Pre-rendered, themed molecule SVG (served from /structures/<id>.svg) */
+.mol {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.mol--detail {
+  width: 100%;
+  max-width: 320px;
+  max-height: 320px;
+}
+
 .card__name {
   font-size: 20px;
   margin-bottom: 10px;

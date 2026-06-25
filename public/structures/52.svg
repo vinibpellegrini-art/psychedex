@@ -1,0 +1,17 @@
+<svg id="mol52" xmlns="http://www.w3.org/2000/svg" version="1.1" width="77px" height="31px" viewBox="112 135 77 31">
+  <style> #mol52 text {font-family: sans-serif;} #mol52 { pointer-events:none; } #mol52 .event  { pointer-events:all; } #mol52 line { stroke-linecap:round; } #mol52 polygon { stroke-linejoin:round; } </style>
+  <text x="120.95" y="154.67" stroke="none" font-size="14" fill="rgb(129,140,248)">N</text>
+  <text x="132.05" y="149" stroke="none" font-size="9" fill="rgb(129,140,248)">-</text>
+  <text x="144.95" y="154.67" stroke="none" font-size="14" fill="rgb(129,140,248)">N</text>
+  <text x="156.05" y="149" stroke="none" font-size="9" fill="rgb(129,140,248)">+</text>
+  <text x="168.55" y="154.67" stroke="none" font-size="14" fill="rgb(248,113,113)">O</text>
+  <line x1="132.05" y1="151.8" x2="143.95" y2="151.8" stroke="rgb(228,226,242)" stroke-width="1.5" />
+  <line x1="132.05" y1="148.2" x2="143.95" y2="148.2" stroke="rgb(228,226,242)" stroke-width="1.5" />
+  <line x1="156.05" y1="151.8" x2="167.55" y2="151.8" stroke="rgb(228,226,242)" stroke-width="1.5" />
+  <line x1="156.05" y1="148.2" x2="167.55" y2="148.2" stroke="rgb(228,226,242)" stroke-width="1.5" />
+  <line id="mol52:Bond:0" class="event" x1="126" y1="150" x2="150" y2="150" stroke-width="1.5" opacity="0" />
+  <line id="mol52:Bond:1" class="event" x1="150" y1="150" x2="174" y2="150" stroke-width="1.5" opacity="0" />
+  <circle id="mol52:Atom:0" class="event" cx="126" cy="150" r="8" opacity="0" />
+  <circle id="mol52:Atom:1" class="event" cx="150" cy="150" r="8" opacity="0" />
+  <circle id="mol52:Atom:2" class="event" cx="174" cy="150" r="8" opacity="0" />
+</svg>

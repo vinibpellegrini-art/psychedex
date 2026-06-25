@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import { badgeStyle } from "../lib/categoryColors";
 import { tCategory, tLegal, tDuration, tDescription } from "../lib/translate";
+import MoleculeSVG from "../components/MoleculeSVG";
 import DoseBar from "../components/DoseBar";
 
 // SubstancePage component - displays detailed information for one substance,
@@ -68,11 +69,6 @@ function SubstancePage() {
     );
   }
 
-  // Build the PubChem structure image URL from the CID, when available.
-  const imageUrl = substance.pubchem_cid
-    ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${substance.pubchem_cid}/PNG?image_size=350x350`
-    : null;
-
   return (
     <div className="detail">
       <button className="back" onClick={() => navigate("/")}>
@@ -80,12 +76,13 @@ function SubstancePage() {
       </button>
 
       <div className="detail__body">
-        {/* Molecular structure */}
+        {/* Molecular structure (pre-rendered SVG, lazy-loaded) */}
         <div className="detail__imgwrap">
-          <img
-            className="detail__img"
-            src={imageUrl ?? new URL("../assets/notfound.png", import.meta.url).href}
+          <MoleculeSVG
+            id={substance.id}
             alt={t("structure_alt", { name: substance.name })}
+            className="mol mol--detail"
+            placeholderClassName="detail__img"
           />
         </div>
 

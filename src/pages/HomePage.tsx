@@ -162,7 +162,6 @@ function HomePage() {
                 category={substance.category}
                 duration={substance.duration}
                 description={substance.description}
-                cid={substance.pubchem_cid ?? undefined}
               />
             ))}
       </div>
