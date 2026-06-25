@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { badgeStyle } from "../lib/categoryColors";
 import { useCombos } from "../context/CombosContext";
 
@@ -29,6 +30,7 @@ function SubstanceCard({
   description,
   cid,
 }: Props) {
+  const { t } = useTranslation();
   // Hook to navigate to the substance detail page on card click.
   const navigate = useNavigate();
 
@@ -85,11 +87,7 @@ function SubstanceCard({
       <button
         className={`addbtn ${selected ? "addbtn--on" : ""}`}
         onClick={handleToggle}
-        title={
-          selected
-            ? "Remove from interaction checker"
-            : "Add to interaction checker"
-        }
+        title={selected ? t("remove_from_checker") : t("add_to_checker")}
         aria-pressed={selected}
       >
         {selected ? "✓" : "+"}
@@ -102,7 +100,7 @@ function SubstanceCard({
           <img
             className="card__img"
             src={imageUrl}
-            alt={`${name} structure`}
+            alt={t("structure_alt", { name })}
             loading="lazy"
             onError={handleError}
           />
@@ -110,7 +108,7 @@ function SubstanceCard({
           <img
             className="card__img card__img--placeholder"
             src={new URL("../assets/notfound.png", import.meta.url).href}
-            alt="Structure not available"
+            alt={t("structure_unavailable")}
           />
         )}
       </div>
@@ -125,7 +123,7 @@ function SubstanceCard({
 
       {/* Duration of effects */}
       <p className="card__meta">
-        <strong>Duration:</strong> {duration}
+        <strong>{t("duration")}:</strong> {duration}
       </p>
 
       {/* Brief description */}

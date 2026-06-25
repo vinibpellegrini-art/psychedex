@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import { badgeStyle } from "../lib/categoryColors";
 import DoseBar from "../components/DoseBar";
@@ -7,6 +8,7 @@ import DoseBar from "../components/DoseBar";
 // SubstancePage component - displays detailed information for one substance,
 // loaded from the Supabase `substances_view` view by id.
 function SubstancePage() {
+  const { t } = useTranslation();
   // Get the substance ID from the route parameters.
   const { id } = useParams();
   const navigate = useNavigate();
@@ -46,11 +48,11 @@ function SubstancePage() {
   }, [id]);
 
   if (loading) {
-    return <p className="state">Loading...</p>;
+    return <p className="state">{t("loading")}</p>;
   }
 
   if (error) {
-    return <p className="state state--error">Failed to load: {error}</p>;
+    return <p className="state state--error">{t("detail_load_error", { error })}</p>;
   }
 
   // Display error message if substance is not found.
@@ -58,9 +60,9 @@ function SubstancePage() {
     return (
       <div className="detail">
         <button className="back" onClick={() => navigate("/")}>
-          ← Back
+          ← {t("back")}
         </button>
-        <h1 className="detail__title">Substance not found</h1>
+        <h1 className="detail__title">{t("not_found")}</h1>
       </div>
     );
   }
@@ -73,7 +75,7 @@ function SubstancePage() {
   return (
     <div className="detail">
       <button className="back" onClick={() => navigate("/")}>
-        ← Back
+        ← {t("back")}
       </button>
 
       <div className="detail__body">
@@ -82,7 +84,7 @@ function SubstancePage() {
           <img
             className="detail__img"
             src={imageUrl ?? new URL("../assets/notfound.png", import.meta.url).href}
-            alt={`${substance.name} structure`}
+            alt={t("structure_alt", { name: substance.name })}
           />
         </div>
 
@@ -103,7 +105,7 @@ function SubstancePage() {
           </div>
 
           <p className="detail__row">
-            <strong>Duration:</strong> {substance.duration}
+            <strong>{t("duration")}:</strong> {substance.duration}
           </p>
 
           <p className="detail__desc">{substance.description}</p>

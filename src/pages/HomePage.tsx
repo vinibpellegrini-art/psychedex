@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import SubstanceCard from "../components/SubstanceCard";
+import LangSwitch from "../components/LangSwitch";
 
 // HomePage component - main page displaying all substances with search and
 // category filtering. Data is loaded from the Supabase `substances_view` view.
 function HomePage() {
+  const { t } = useTranslation();
   // State for the search input value entered by the user.
   const [search, setSearch] = useState("");
   // Currently selected category filter ("" means all categories).
@@ -103,7 +106,7 @@ function HomePage() {
             <input
               className="input"
               type="text"
-              placeholder="Search substances..."
+              placeholder={t("search_placeholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -115,30 +118,33 @@ function HomePage() {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="">All categories</option>
+            <option value="">{t("all_categories")}</option>
             {categories.map((name) => (
               <option key={name} value={name}>
                 {name}
               </option>
             ))}
           </select>
+
+          <LangSwitch />
         </div>
       </header>
 
       {/* Result count */}
       {!loading && !error && (
         <p className="count">
-          {substances.length} substance{substances.length === 1 ? "" : "s"}
-          {filtering ? " match your filters" : ""}
+          {filtering
+            ? t("count_filtered", { count: substances.length })
+            : t("count_all", { count: substances.length })}
         </p>
       )}
 
       {/* Error / empty states */}
       {error && (
-        <p className="state state--error">Failed to load substances: {error}</p>
+        <p className="state state--error">{t("load_error", { error })}</p>
       )}
       {!loading && !error && substances.length === 0 && (
-        <p className="state">No substances match your search.</p>
+        <p className="state">{t("no_results")}</p>
       )}
 
       {/* Grid of cards (or shimmer skeletons while loading) */}

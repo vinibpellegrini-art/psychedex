@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 // Gradient dose spectrum: a green-to-red bar with the five dose tiers
 // (threshold/light/common/strong/heavy) labelled above and their values below.
 // Renders nothing if the substance has no dose data.
@@ -34,6 +36,7 @@ function DoseBar({
   strong,
   heavy,
 }: Props) {
+  const { t } = useTranslation();
   // Need a unit and all five tiers to draw a meaningful bar.
   if (
     !unit ||
@@ -55,9 +58,10 @@ function DoseBar({
     <div className="dose">
       <div className="dose__head">
         <span className="dose__title">
-          Dosage{route ? ` · ${route}` : ""} ({unit})
+          {t("dosage")}
+          {route ? ` · ${route}` : ""} ({unit})
         </span>
-        <span className="dose__note">reference ranges — not a recommendation</span>
+        <span className="dose__note">{t("dose_note")}</span>
       </div>
 
       {/* Tier names, aligned to the start of each band */}

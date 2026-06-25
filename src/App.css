@@ -27,6 +27,26 @@
   filter: drop-shadow(0 0 24px rgba(192, 132, 252, 0.35));
 }
 
+/* Language switcher (EN/PT) */
+.langswitch {
+  flex: 0 0 auto;
+  align-self: center;
+  padding: 8px 12px;
+  font: 600 14px var(--sans);
+  white-space: nowrap;
+  color: var(--text-h);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.langswitch:hover {
+  border-color: var(--border-hover);
+  background: var(--card-hover);
+}
+
 /* ---- Search + filter controls ---- */
 .controls {
   display: flex;

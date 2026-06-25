@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import HomePage from "./pages/HomePage";
 import SubstancePage from "./pages/SubstancePage";
 import Sidebar from "./components/Sidebar";
@@ -9,11 +10,12 @@ import "./App.css";
 // Floating launcher button that opens the interaction-checker sidebar and
 // shows how many substances are currently selected.
 function CombosLauncher() {
+  const { t } = useTranslation();
   const { items, open, setOpen } = useCombos();
   if (open) return null;
   return (
     <button className="launcher" onClick={() => setOpen(true)}>
-      ⚗ Interactions
+      ⚗ {t("interactions")}
       {items.length > 0 && <span className="launcher__count">{items.length}</span>}
     </button>
   );
