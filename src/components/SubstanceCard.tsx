@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { badgeStyle } from "../lib/categoryColors";
 import { useCombos } from "../context/CombosContext";
+import { tCategory, tDuration, tDescription } from "../lib/translate";
 
 // Props interface for the SubstanceCard component.
 // Accepts a PubChem CID so the component can render a molecular structure image.
@@ -118,16 +119,16 @@ function SubstanceCard({
 
       {/* Category badge, color-coded by category */}
       <span className="badge" style={badgeStyle(category)}>
-        {category}
+        {tCategory(category)}
       </span>
 
       {/* Duration of effects */}
       <p className="card__meta">
-        <strong>{t("duration")}:</strong> {duration}
+        <strong>{t("duration")}:</strong> {tDuration(duration)}
       </p>
 
       {/* Brief description */}
-      <p className="card__desc">{description}</p>
+      <p className="card__desc">{tDescription(id, description)}</p>
     </div>
   );
 }

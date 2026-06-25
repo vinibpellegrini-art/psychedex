@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { tRoute } from "../lib/translate";
 
 // Gradient dose spectrum: a green-to-red bar with the five dose tiers
 // (threshold/light/common/strong/heavy) labelled above and their values below.
@@ -15,11 +16,11 @@ type Props = {
 };
 
 const TIERS = [
-  { label: "Threshold", color: "#2dd4bf" },
-  { label: "Light", color: "#34d399" },
-  { label: "Common", color: "#fbbf24" },
-  { label: "Strong", color: "#fb923c" },
-  { label: "Heavy", color: "#f87171" },
+  { key: "dose_threshold", color: "#2dd4bf" },
+  { key: "dose_light", color: "#34d399" },
+  { key: "dose_common", color: "#fbbf24" },
+  { key: "dose_strong", color: "#fb923c" },
+  { key: "dose_heavy", color: "#f87171" },
 ];
 
 // Format a number without trailing ".0" noise.
@@ -50,25 +51,29 @@ function DoseBar({
   }
 
   const values = [threshold, light, common, strong, heavy];
-  const summary = TIERS.map((t, i) => `${t.label} ${fmt(values[i])}${unit}`).join(
-    ", "
-  );
+  const summary = TIERS.map(
+    (tier, i) => `${t(tier.key)} ${fmt(values[i])}${unit}`
+  ).join(", ");
 
   return (
     <div className="dose">
       <div className="dose__head">
         <span className="dose__title">
           {t("dosage")}
-          {route ? ` · ${route}` : ""} ({unit})
+          {route ? ` · ${tRoute(route)}` : ""} ({unit})
         </span>
         <span className="dose__note">{t("dose_note")}</span>
       </div>
 
       {/* Tier names, aligned to the start of each band */}
       <div className="dose__tiers">
-        {TIERS.map((t) => (
-          <span key={t.label} className="dose__tier" style={{ color: t.color }}>
-            {t.label}
+        {TIERS.map((tier) => (
+          <span
+            key={tier.key}
+            className="dose__tier"
+            style={{ color: tier.color }}
+          >
+            {t(tier.key)}
           </span>
         ))}
       </div>
@@ -82,8 +87,8 @@ function DoseBar({
 
       {/* Lower-bound value for each tier */}
       <div className="dose__values">
-        {TIERS.map((t, i) => (
-          <span key={t.label} className="dose__value">
+        {TIERS.map((tier, i) => (
+          <span key={tier.key} className="dose__value">
             {fmt(values[i])}
             {i === TIERS.length - 1 ? "+" : ""}
           </span>

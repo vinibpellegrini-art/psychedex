@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useCombos } from "../context/CombosContext";
 import { badgeStyle } from "../lib/categoryColors";
+import { tCategory } from "../lib/translate";
 import {
   getInteraction,
   highestRisk,
@@ -63,7 +64,7 @@ function Sidebar() {
               <div key={item.id} className="combo-item">
                 <span className="combo-item__name">{item.name}</span>
                 <span className="badge" style={badgeStyle(item.category)}>
-                  {item.category}
+                  {tCategory(item.category)}
                 </span>
                 <button
                   className="iconbtn iconbtn--sm"
@@ -86,7 +87,7 @@ function Sidebar() {
           ) : (
             <div className="interactions">
               <h4 className="interactions__title">{t("combinations")}</h4>
-              {interactions.map(({ a, b, level, note }) => (
+              {interactions.map(({ a, b, level, noteKey }) => (
                 <div key={`${a.id}-${b.id}`} className="interaction">
                   <div className="interaction__head">
                     <span className="interaction__pair">
@@ -103,7 +104,7 @@ function Sidebar() {
                       {t(`risk_${level}`)}
                     </span>
                   </div>
-                  <p className="interaction__note">{note}</p>
+                  <p className="interaction__note">{t(noteKey)}</p>
                 </div>
               ))}
             </div>

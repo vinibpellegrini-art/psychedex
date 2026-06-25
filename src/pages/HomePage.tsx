@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import SubstanceCard from "../components/SubstanceCard";
 import LangSwitch from "../components/LangSwitch";
+import { tCategory } from "../lib/translate";
 
 // HomePage component - main page displaying all substances with search and
 // category filtering. Data is loaded from the Supabase `substances_view` view.
@@ -121,7 +122,7 @@ function HomePage() {
             <option value="">{t("all_categories")}</option>
             {categories.map((name) => (
               <option key={name} value={name}>
-                {name}
+                {tCategory(name)}
               </option>
             ))}
           </select>

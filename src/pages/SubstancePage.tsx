@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import { badgeStyle } from "../lib/categoryColors";
+import { tCategory, tLegal, tDuration, tDescription } from "../lib/translate";
 import DoseBar from "../components/DoseBar";
 
 // SubstancePage component - displays detailed information for one substance,
@@ -95,20 +96,22 @@ function SubstancePage() {
           {/* Category + legal-status tags */}
           <div className="detail__tags">
             <span className="badge" style={badgeStyle(substance.category)}>
-              {substance.category}
+              {tCategory(substance.category)}
             </span>
             {substance.legal_status && (
               <span className="badge" style={badgeStyle(substance.legal_status)}>
-                {substance.legal_status}
+                {tLegal(substance.legal_status)}
               </span>
             )}
           </div>
 
           <p className="detail__row">
-            <strong>{t("duration")}:</strong> {substance.duration}
+            <strong>{t("duration")}:</strong> {tDuration(substance.duration)}
           </p>
 
-          <p className="detail__desc">{substance.description}</p>
+          <p className="detail__desc">
+            {tDescription(substance.id, substance.description)}
+          </p>
 
           {/* Dose spectrum (renders only when the substance has dose data) */}
           <DoseBar
