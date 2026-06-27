@@ -32,6 +32,9 @@ const resources = {
       loading: "Loading...",
       detail_load_error: "Failed to load: {{error}}",
       not_found: "Substance not found",
+      medical_uses: "Treats (ICD-10)",
+      medical_note:
+        "Established / approved medical uses — these vary by country and are an educational reference, not exhaustive.",
 
       // Interaction checker
       checker_title: "Interaction checker",
@@ -155,6 +158,9 @@ const resources = {
       loading: "Carregando...",
       detail_load_error: "Falha ao carregar: {{error}}",
       not_found: "Substância não encontrada",
+      medical_uses: "Trata (CID-10)",
+      medical_note:
+        "Usos médicos estabelecidos/aprovados — variam por país e são referência educativa, não exaustiva.",
 
       // Interaction checker
       checker_title: "Verificador de interações",

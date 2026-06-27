@@ -3,7 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import { badgeStyle } from "../lib/categoryColors";
-import { tCategory, tLegal, tDuration, tDescription } from "../lib/translate";
+import {
+  tCategory,
+  tLegal,
+  tDuration,
+  tDescription,
+  tCondition,
+} from "../lib/translate";
+import { indications } from "../data/indications";
 import MoleculeSVG from "../components/MoleculeSVG";
 import DoseBar from "../components/DoseBar";
 
@@ -109,6 +116,22 @@ function SubstancePage() {
           <p className="detail__desc">
             {tDescription(substance.id, substance.description)}
           </p>
+
+          {/* Medical uses (ICD-10) — only when the substance has indications */}
+          {indications[substance.id]?.length ? (
+            <div className="indications">
+              <h3 className="indications__title">{t("medical_uses")}</h3>
+              <ul className="indications__list">
+                {indications[substance.id].map((code) => (
+                  <li key={code} className="indication">
+                    <span className="indication__code">{code}</span>
+                    <span className="indication__name">{tCondition(code)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="indications__note">{t("medical_note")}</p>
+            </div>
+          ) : null}
 
           {/* Dose spectrum (renders only when the substance has dose data) */}
           <DoseBar

@@ -1,5 +1,6 @@
 import i18n from "../i18n";
 import { descriptionPt } from "../data/substancesPt";
+import { conditions } from "../data/indications";
 
 // Helpers for translating database-sourced values (categories, legal status,
 // durations, routes, descriptions). These read the current language at call
@@ -71,4 +72,11 @@ export function tDuration(d: string): string {
 
 export function tDescription(id: number, fallback: string): string {
   return isPt() ? descriptionPt[id] ?? fallback : fallback;
+}
+
+// Condition name for an ICD-10 code, in the current language.
+export function tCondition(code: string): string {
+  const c = conditions[code];
+  if (!c) return code;
+  return isPt() ? c.pt : c.en;
 }
