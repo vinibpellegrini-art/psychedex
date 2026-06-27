@@ -10,6 +10,9 @@ const resources = {
       // Home
       search_placeholder: "Search substances...",
       all_categories: "All categories",
+      n_selected_one: "{{count}} selected",
+      n_selected_other: "{{count}} selected",
+      clear: "Clear",
       count_all_one: "{{count}} substance",
       count_all_other: "{{count}} substances",
       count_filtered_one: "{{count}} substance matches your filters",
@@ -130,6 +133,9 @@ const resources = {
       // Home
       search_placeholder: "Buscar substâncias...",
       all_categories: "Todas as categorias",
+      n_selected_one: "{{count}} selecionada",
+      n_selected_other: "{{count}} selecionadas",
+      clear: "Limpar",
       count_all_one: "{{count}} substância",
       count_all_other: "{{count}} substâncias",
       count_filtered_one: "{{count}} substância corresponde aos filtros",

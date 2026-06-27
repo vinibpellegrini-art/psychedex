@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { supabase, type Substance } from "../lib/supabase";
 import SubstanceCard from "../components/SubstanceCard";
 import LangSwitch from "../components/LangSwitch";
-import { tCategory } from "../lib/translate";
+import CategoryFilter from "../components/CategoryFilter";
 
 // HomePage component - main page displaying all substances with search and
 // category filtering. Data is loaded from the Supabase `substances_view` view.
@@ -11,8 +11,8 @@ function HomePage() {
   const { t } = useTranslation();
   // State for the search input value entered by the user.
   const [search, setSearch] = useState("");
-  // Currently selected category filter ("" means all categories).
-  const [category, setCategory] = useState("");
+  // Selected category filters (empty array means all categories).
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   // List of available category names for the dropdown.
   const [categories, setCategories] = useState<string[]>([]);
   // Substances loaded from the database.
@@ -54,8 +54,8 @@ function HomePage() {
       if (search.trim()) {
         query = query.ilike("name", `%${search.trim()}%`);
       }
-      if (category) {
-        query = query.eq("category", category);
+      if (selectedCategories.length > 0) {
+        query = query.in("category", selectedCategories);
       }
 
       const { data, error } = await query;
@@ -74,9 +74,9 @@ function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, [search, category]);
+  }, [search, selectedCategories]);
 
-  const filtering = search.trim() !== "" || category !== "";
+  const filtering = search.trim() !== "" || selectedCategories.length > 0;
 
   return (
     <div>
@@ -113,19 +113,12 @@ function HomePage() {
             />
           </div>
 
-          {/* Category filter dropdown */}
-          <select
-            className="select"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">{t("all_categories")}</option>
-            {categories.map((name) => (
-              <option key={name} value={name}>
-                {tCategory(name)}
-              </option>
-            ))}
-          </select>
+          {/* Multi-select category filter (checkboxes) */}
+          <CategoryFilter
+            categories={categories}
+            selected={selectedCategories}
+            onChange={setSelectedCategories}
+          />
 
           <LangSwitch />
         </div>
