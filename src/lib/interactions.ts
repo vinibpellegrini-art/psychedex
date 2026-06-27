@@ -40,6 +40,18 @@ const CATEGORY_CLASS: Record<string, string> = {
 
 type Interaction = { level: RiskLevel; noteKey: string };
 
+// Broad interaction classes, in display order.
+export const INTERACTION_CLASSES = [
+  "depressant",
+  "stimulant",
+  "serotonergic",
+  "empathogen",
+  "psychedelic",
+  "dissociative",
+  "cannabinoid",
+  "antipsychotic",
+] as const;
+
 // Risk level for each broad-class pair. Order doesn't matter — the lookup key
 // is the two class names sorted alphabetically. The note text lives in i18n
 // under `ix_<sorted_pair>`.
@@ -88,6 +100,16 @@ for (const [a, b, level] of RULES) {
   RULE_MAP.set([a, b].sort().join("+"), level);
 }
 
+// Interaction between two broad classes.
+function lookupClasses(classA: string, classB: string): Interaction {
+  const sorted = [classA, classB].sort();
+  const level = RULE_MAP.get(sorted.join("+"));
+  if (level) {
+    return { level, noteKey: `ix_${sorted.join("_")}` };
+  }
+  return { level: "unknown", noteKey: "ix_no_guidance" };
+}
+
 // Returns the interaction between two substance categories.
 export function getInteraction(
   categoryA: string,
@@ -98,12 +120,20 @@ export function getInteraction(
   if (!classA || !classB) {
     return { level: "unknown", noteKey: "ix_insufficient" };
   }
-  const sorted = [classA, classB].sort();
-  const level = RULE_MAP.get(sorted.join("+"));
-  if (level) {
-    return { level, noteKey: `ix_${sorted.join("_")}` };
-  }
-  return { level: "unknown", noteKey: "ix_no_guidance" };
+  return lookupClasses(classA, classB);
+}
+
+export type ClassInteraction = Interaction & { className: string };
+
+// Interaction profile of one category against every broad class — used on the
+// substance detail page.
+export function classInteractions(category: string): ClassInteraction[] {
+  const cls = CATEGORY_CLASS[category];
+  if (!cls) return [];
+  return INTERACTION_CLASSES.map((other) => ({
+    className: other,
+    ...lookupClasses(cls, other),
+  }));
 }
 
 // Returns the highest-severity level among a set of interactions.

@@ -55,6 +55,16 @@ const resources = {
       risk_low: "Low risk",
       risk_unknown: "Unknown",
 
+      // Broad interaction classes (detail-page interaction profile)
+      cls_depressant: "Depressants",
+      cls_stimulant: "Stimulants",
+      cls_serotonergic: "Antidepressants (SSRIs/SNRIs)",
+      cls_empathogen: "Empathogens (MDMA)",
+      cls_psychedelic: "Psychedelics",
+      cls_dissociative: "Dissociatives",
+      cls_cannabinoid: "Cannabis",
+      cls_antipsychotic: "Antipsychotics",
+
       // Dose bar
       dosage: "Dosage",
       dose_note: "reference ranges — not a recommendation",
@@ -180,6 +190,16 @@ const resources = {
       risk_caution: "Cuidado",
       risk_low: "Baixo risco",
       risk_unknown: "Desconhecido",
+
+      // Broad interaction classes (detail-page interaction profile)
+      cls_depressant: "Depressores",
+      cls_stimulant: "Estimulantes",
+      cls_serotonergic: "Antidepressivos (ISRS/IRSN)",
+      cls_empathogen: "Empatógenos (MDMA)",
+      cls_psychedelic: "Psicodélicos",
+      cls_dissociative: "Dissociativos",
+      cls_cannabinoid: "Cannabis",
+      cls_antipsychotic: "Antipsicóticos",
 
       // Dose bar
       dosage: "Dosagem",

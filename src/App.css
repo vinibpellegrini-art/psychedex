@@ -555,6 +555,46 @@
   color: var(--text-dim);
 }
 
+/* ---- Interaction profile on the detail page ---- */
+.det-ix {
+  margin-top: 26px;
+  max-width: 460px;
+}
+
+.det-ix__title {
+  font-family: var(--heading);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-h);
+  margin-bottom: 8px;
+}
+
+.det-ix__row {
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+
+.det-ix__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.det-ix__name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.det-ix__note {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
 /* ---- Dose spectrum bar ---- */
 .dose {
   margin-top: 26px;

@@ -11,6 +11,7 @@ import {
   tCondition,
 } from "../lib/translate";
 import { indications } from "../data/indications";
+import { classInteractions, RISK_META } from "../lib/interactions";
 import MoleculeSVG from "../components/MoleculeSVG";
 import DoseBar from "../components/DoseBar";
 
@@ -75,6 +76,11 @@ function SubstancePage() {
       </div>
     );
   }
+
+  // This substance's interaction profile vs each broad drug class, worst first.
+  const interactionProfile = classInteractions(substance.category)
+    .slice()
+    .sort((a, b) => RISK_META[b.level].rank - RISK_META[a.level].rank);
 
   return (
     <div className="detail">
@@ -143,6 +149,34 @@ function SubstancePage() {
             strong={substance.dose_strong}
             heavy={substance.dose_heavy}
           />
+
+          {/* Interaction profile vs each broad drug class */}
+          {interactionProfile.length > 0 && (
+            <div className="det-ix">
+              <h3 className="det-ix__title">{t("interactions")}</h3>
+              {interactionProfile.map((ix) => (
+                <div key={ix.className} className="det-ix__row">
+                  <div className="det-ix__head">
+                    <span className="det-ix__name">
+                      {t(`cls_${ix.className}`)}
+                    </span>
+                    <span
+                      className="risk-pill"
+                      style={{
+                        color: RISK_META[ix.level].color,
+                        borderColor: `${RISK_META[ix.level].color}66`,
+                        background: `${RISK_META[ix.level].color}1a`,
+                      }}
+                    >
+                      {t(`risk_${ix.level}`)}
+                    </span>
+                  </div>
+                  <p className="det-ix__note">{t(ix.noteKey)}</p>
+                </div>
+              ))}
+              <p className="indications__note">{t("checker_disclaimer")}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
